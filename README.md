@@ -16,11 +16,117 @@ Perfect for your **"AI Year in Review"**!
 
 ## 🚀 Quick Start
 
-### 1. Install Python dependencies
+### 1. Export your chat history
+Save your conversations as a **JSON file** (e.g., `chat_export.json`).  
+It must contain messages with:
+- `role` (`"user"` or `"assistant"`)
+- `timestamp` (Unix seconds, e.g., `1766656979`)
+
+### 2. Run the analyzer
 ```bash
-pip install -r requirements.txt
-# (No external deps needed! Pure Python 🐍)
+python ai_chat_analyzer.py chat_export.json
 ```
+
+> 🔍 The script will:
+> - Parse all conversations and messages
+> - Filter data for the target year (default: 2025)
+> - Print a summary in the terminal
+> - Save a detailed report as `ai_chat_summary_2025.md`
+
+💡 **Tip**: Make sure your JSON file follows the expected structure (see [Supported Data Format](#supported-data-format)).
+
+---
+
+## 📁 Example Output
+
+```
+============================================================
+🤖 AI 对话年度统计报告（2025）
+============================================================
+📁 总对话会话数（Conversations）: 84
+💬 总消息条数（Messages）: 1,247
+  - 用户提问: 623 条 (28,412 字)
+  - AI 回答: 624 条 (152,890 字)
+
+📈 月度活跃度（2025）:
+  - January 2025: 42 条消息
+  - February 2025: 38 条消息
+  ...
+  - December 2025: 156 条消息
+
+🧠 最常使用的模型:
+  - qwen3-max-2025-10-30: 84 次
+
+📊 平均每场对话消息数: 14.8
+============================================================
+```
+
+And `ai_chat_summary_2025.md`:
+```markdown
+# AI 对话年度总结（2025）
+
+- 对话会话数: 84
+- 总消息数: 1247
+- 用户消息: 623 条（28412 字）
+- AI 消息: 624 条（152890 字）
+
+## 月度活跃度
+- January 2025: 42 条
+- February 2025: 38 条
+...
+```
+
+---
+
+## 📦 Supported Data Format
+
+Your JSON should look like:
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "title": "My Chat",
+      "chat": {
+        "history": {
+          "messages": {
+            "msg1": {
+              "role": "user",
+              "content": "Hello!",
+              "timestamp": 1766656979
+            },
+            "msg2": {
+              "role": "assistant",
+              "content": "Hi there!",
+              "timestamp": 1766656985,
+              "model": "qwen3-max-2025-10-30"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+> 🔧 Need support for another format? Open an issue!
+
+---
+
+## 🛠️ Requirements
+
+- Python 3.7+
+- No third-party dependencies (uses only standard library)
+
+---
+
+## 🤝 Contributing
+
+Feel free to:
+- 🐞 Report bugs
+- 💡 Suggest new stats (e.g., word clouds, response time)
+- 🌐 Add support for other AI platforms (ChatGPT, Claude, etc.)
 
 ---
 
