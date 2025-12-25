@@ -1,9 +1,9 @@
 # 🤖 AI Chat Analyzer
 
-Analyze your **exported AI chat history** (e.g., from Qwen) to generate insightful annual reports:
+Analyze your **exported AI chat history** (e.g., from Qwen) to generate insightful reports:
 
 - 📊 Total conversations & messages  
-- 📅 Monthly/daily activity trends  
+- 📅 Monthly activity trends (or all-time)  
 - 💬 User vs. AI message & word counts  
 - 🧠 Most-used AI models  
 - 📝 Exportable summary (Markdown)
@@ -24,14 +24,17 @@ It must contain messages with:
 
 ### 2. Run the analyzer
 ```bash
+# Analyze all time
 python ai_chat_analyzer.py chat_export.json
+
+# Analyze specific year (e.g., 2025)
+python ai_chat_analyzer.py chat_export.json 2025
 ```
 
 > 🔍 The script will:
 > - Parse all conversations and messages
-> - Filter data for the target year (default: 2025)
 > - Print a summary in the terminal
-> - Save a detailed report as `ai_chat_summary_2025.md`
+> - Save a detailed report as `ai_chat_summary_all.md` or `ai_chat_summary_2025.md`
 
 💡 **Tip**: Make sure your JSON file follows the expected structure (see [Supported Data Format](#supported-data-format)).
 
@@ -41,14 +44,14 @@ python ai_chat_analyzer.py chat_export.json
 
 ```
 ============================================================
-🤖 AI 对话年度统计报告（2025）
+🤖 AI 对话统计报告（2025）
 ============================================================
-📁 总对话会话数（Conversations）: 84
-💬 总消息条数（Messages）: 1,247
+📁 总对话会话数: 84
+💬 总消息条数: 1,247
   - 用户提问: 623 条 (28,412 字)
   - AI 回答: 624 条 (152,890 字)
 
-📈 月度活跃度（2025）:
+📈 月度活跃度:
   - January 2025: 42 条消息
   - February 2025: 38 条消息
   ...
@@ -63,7 +66,7 @@ python ai_chat_analyzer.py chat_export.json
 
 And `ai_chat_summary_2025.md`:
 ```markdown
-# AI 对话年度总结（2025）
+# AI 对话统计报告（2025）
 
 - 对话会话数: 84
 - 总消息数: 1247
@@ -98,7 +101,13 @@ Your JSON should look like:
             },
             "msg2": {
               "role": "assistant",
-              "content": "Hi there!",
+              "content": "",
+              "content_list": [
+                {
+                  "content": "Hi there!",
+                  "role": "assistant"
+                }
+              ],
               "timestamp": 1766656985,
               "model": "qwen3-max-2025-10-30"
             }
